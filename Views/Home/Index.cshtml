@@ -5,12 +5,71 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <div class="p-5 my-4 bg-light rounded-3 text-center">
+        <h1>Welcome!</h1>
+        <p class="lead">
+            This site is part of my learning journey in ELDNET. 
+            It’s a space where I practice, experiment, and share what I’m learning as I grow my skills.
+        </p>
 
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <a class="btn btn-primary mt-3" href="@Url.Action("Index", "Students")">Go to Students</a>
-    }
+        @if (SignInManager.IsSignedIn(User)) {
+            <a class="btn btn-primary btn-lg mt-3" href="@Url.Action("Index", "Students")">
+                Go to Students
+            </a>
+        } else {
+            <a class="btn btn-primary btn-lg mt-3" href="~/Identity/Account/Register">
+                Register
+            </a>
+            <a class="btn btn-outline-primary btn-lg mt-3" href="~/Identity/Account/Login">
+                Login
+            </a>
+        }
+    </div>
+
+    <div class="row text-center mt-5">
+        <div class="col-md-4">
+            <h2>PLACEHOLDER</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam rutrum nulla. 
+                Proin rutrum justo id lorem sodales, vel efficitur massa dignissim. 
+                In magna diam, consectetur sit amet faucibus in, consectetur sit amet.
+            </p>
+            <p>
+                <a href="" target="_blank" class="btn btn-success">
+                    Learn More &raquo;
+                </a>
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>PLACEHOLDER</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam rutrum nulla. 
+                Proin rutrum justo id lorem sodales, vel efficitur massa dignissim. 
+                In magna diam, consectetur sit amet faucibus in, consectetur sit amet.
+            </p>
+            <p>
+                <a href="" target="_blank" class="btn btn-success">
+                    Learn More &raquo;
+                </a>
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <h2>PLACEHOLDER</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam rutrum nulla. 
+                Proin rutrum justo id lorem sodales, vel efficitur massa dignissim. 
+                In magna diam, consectetur sit amet faucibus in, consectetur sit amet.
+            </p>
+            <p>
+                <a href="" target="_blank" class="btn btn-success">
+                    Learn More &raquo;
+                </a>
+            </p>
+        </div>
+    </div>
+
+
 </div>
