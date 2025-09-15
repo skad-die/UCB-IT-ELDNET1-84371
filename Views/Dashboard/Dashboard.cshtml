@@ -1,0 +1,100 @@
+﻿@*
+    Simple dashboard placeholder
+*@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container my-4">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h1 class="h3 mb-0">Dashboard</h1>
+        <small class="text-muted">Overview & quick actions</small>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">Students</h6>
+                    <div class="display-6 fw-bold">—</div>
+                    <small class="text-muted">Total registered</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">Active Courses</h6>
+                    <div class="display-6 fw-bold">—</div>
+                    <small class="text-muted">Currently active</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">Pending Tasks</h6>
+                    <div class="display-6 text-warning fw-bold">—</div>
+                    <small class="text-muted">Requires attention</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-muted">Messages</h6>
+                    <div class="display-6 fw-bold">—</div>
+                    <small class="text-muted">Unread</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-header">
+                    Recent activity
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">No activity to show — this is a placeholder area for recent events, logs or feed items.</p>
+
+                    <ul class="list-group list-group-flush" aria-live="polite">
+                        <li class="list-group-item small text-muted">Placeholder: latest events will appear here.</li>
+                        <li class="list-group-item small text-muted">Placeholder: recent logins, submissions, updates, etc.</li>
+                        <li class="list-group-item small text-muted">Placeholder: click an item to view details.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-3">
+                <div class="card-header">
+                    Quick actions
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-primary" href="@Url.Action("Index", "Students")"> Add Student </a>
+                        <a class="btn btn-outline-secondary" href="#" role="button">Create course</a>
+                        <a class="btn btn-outline-secondary" href="#" role="button">Export report</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    Placeholder
+                </div>
+                <div class="card-body">
+                    <p class="mb-1"><strong class="text-success">OK</strong></p>
+                    <small class="text-muted">(placeholder)</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

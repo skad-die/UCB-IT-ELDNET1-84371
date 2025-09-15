@@ -14,8 +14,8 @@
         </p>
 
         @if (SignInManager.IsSignedIn(User)) {
-            <a class="btn btn-primary btn-lg mt-3" href="@Url.Action("Index", "Students")">
-                Go to Students
+            <a class="btn btn-primary btn-lg mt-3" href="@Url.Action("Index", "Dashboard")">
+                Let's Get Started!
             </a>
         } else {
             <a class="btn btn-primary btn-lg mt-3" href="~/Identity/Account/Register">
