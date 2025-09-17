@@ -1,7 +1,4 @@
-﻿@*
-    Simple dashboard placeholder
-*@
-@{
+﻿@{
     ViewData["Title"] = "Dashboard";
 }
 
@@ -17,7 +14,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h6 class="card-subtitle text-muted">Students</h6>
-                    <div class="display-6 fw-bold">—</div>
+                    <div class="display-6 fw-bold">@ViewData["TotalStudents"]</div>
                     <small class="text-muted">Total registered</small>
                 </div>
             </div>
