@@ -21,3 +21,7 @@ body {
   margin-bottom: 60px;
 }
 
+.justify-text {
+    text-align: justify;
+    text-justify: auto;
+}
