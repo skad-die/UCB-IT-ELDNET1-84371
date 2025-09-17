@@ -11,14 +11,9 @@
         <p class="fs-5 text-muted mb-4">Your all-in-one access and reservation hub</p>
         <p class="fs-6 text-secondary">No paperwork, no hassle—just quick access.</p>
 
-        @if (SignInManager.IsSignedIn(User))
-        {
-            <a class="btn btn-primary btn-lg mt-4 px-4" href="@Url.Action("Index", "Dashboard")">
-                Let’s Get Started
-            </a>
-        }
-        else
-        {
+        @if (SignInManager.IsSignedIn(User)) {
+            <a class="btn btn-primary btn-lg mt-4 px-4" href="@Url.Action("Index", "Dashboard")">Let’s Get Started</a>
+        } else {
             <div class="d-grid gap-3 d-md-flex justify-content-center mt-4">
                 <a class="btn btn-primary btn-lg px-4" href="~/Identity/Account/Register">Register</a>
                 <a class="btn btn-outline-primary btn-lg px-4" href="~/Identity/Account/Login">Login</a>
@@ -33,7 +28,7 @@
             <div class="card shadow-sm h-100 w-100">
                 <div class="card-body d-flex flex-column">
                     <h3 class="card-title fw-semibold mb-3">Activity Area Reservations</h3>
-                    <p class="card-text text-muted flex-grow-1">
+                    <p class="card-text text-muted flex-grow-1"> 
                         Reserve activity spaces quickly and conveniently with just a few clicks, making event planning and facility use effortless for everyone.
                     </p>
                     <a href="#" class="btn btn-outline-success mt-auto text-wrap">Learn More &raquo;</a>
