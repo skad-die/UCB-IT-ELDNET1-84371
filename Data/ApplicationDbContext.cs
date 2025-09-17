@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Accessio.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
 
-namespace WebApplication1.Data
+namespace Accessio.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -10,6 +10,6 @@ namespace WebApplication1.Data
             : base(options)
         {
         }
-        public DbSet<WebApplication1.Models.Student> Student { get; set; } = default!;
+        public DbSet<Student> Student { get; set; } = default!;
     }
 }

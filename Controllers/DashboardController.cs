@@ -1,9 +1,9 @@
+using Accessio.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Data;
 
-namespace WebApplication1.Controllers
+namespace Accessio.Controllers
 {
     [Authorize]
     public class DashboardController : Controller

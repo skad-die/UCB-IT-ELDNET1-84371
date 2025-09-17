@@ -5,71 +5,63 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container-fluid">
-    <div class="p-5 my-4 bg-light rounded-3 text-center">
-        <h1>Welcome!</h1>
-        <p class="lead">
-            This site is part of my learning journey in ELDNET. 
-            It’s a space where I practice, experiment, and share what I’m learning as I grow my skills.
-        </p>
+<div class="container-fluid px-0">
+    <div class="bg-light shadow-sm text-center py-5">
+        <h1 class="display-2 fw-bold">Welcome to <span class="text-primary">Accessio</span></h1>
+        <p class="fs-5 text-muted mb-4">Your all-in-one access and reservation hub</p>
+        <p class="fs-6 text-secondary">No paperwork, no hassle—just quick access.</p>
 
-        @if (SignInManager.IsSignedIn(User)) {
-            <a class="btn btn-primary btn-lg mt-3" href="@Url.Action("Index", "Dashboard")">
-                Let's Get Started!
-            </a>
-        } else {
-            <a class="btn btn-primary btn-lg mt-3" href="~/Identity/Account/Register">
-                Register
-            </a>
-            <a class="btn btn-outline-primary btn-lg mt-3" href="~/Identity/Account/Login">
-                Login
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a class="btn btn-primary btn-lg mt-4 px-4" href="@Url.Action("Index", "Dashboard")">
+                Let’s Get Started
             </a>
         }
+        else
+        {
+            <div class="d-grid gap-3 d-md-flex justify-content-center mt-4">
+                <a class="btn btn-primary btn-lg px-4" href="~/Identity/Account/Register">Register</a>
+                <a class="btn btn-outline-primary btn-lg px-4" href="~/Identity/Account/Login">Login</a>
+            </div>
+        }
     </div>
-
-    <div class="row mt-5 justify-text">
-        <div class="col-md-4">
-            <h2>PLACEHOLDER</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam rutrum nulla. 
-                Proin rutrum justo id lorem sodales, vel efficitur massa dignissim. 
-                In magna diam, consectetur sit amet faucibus in, consectetur sit amet.
-            </p>
-            <p>
-                <a href="" target="_blank" class="btn btn-success">
-                    Learn More &raquo;
-                </a>
-            </p>
-        </div>
-
-        <div class="col-md-4">
-            <h2>PLACEHOLDER</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam rutrum nulla. 
-                Proin rutrum justo id lorem sodales, vel efficitur massa dignissim. 
-                In magna diam, consectetur sit amet faucibus in, consectetur sit amet.
-            </p>
-            <p>
-                <a href="" target="_blank" class="btn btn-success">
-                    Learn More &raquo;
-                </a>
-            </p>
-        </div>
-
-        <div class="col-md-4">
-            <h2>PLACEHOLDER</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam rutrum nulla. 
-                Proin rutrum justo id lorem sodales, vel efficitur massa dignissim. 
-                In magna diam, consectetur sit amet faucibus in, consectetur sit amet.
-            </p>
-            <p>
-                <a href="" target="_blank" class="btn btn-success">
-                    Learn More &raquo;
-                </a>
-            </p>
-        </div>
-    </div>
-
-
 </div>
+
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card shadow-sm h-100 w-100">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title fw-semibold mb-3">Activity Area Reservations</h3>
+                    <p class="card-text text-muted flex-grow-1">
+                        Reserve activity spaces quickly and conveniently with just a few clicks, making event planning and facility use effortless for everyone.
+                    </p>
+                    <a href="#" class="btn btn-outline-success mt-auto text-wrap">Learn More &raquo;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card shadow-sm h-100 w-100">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title fw-semibold mb-3">Gate Pass Requests</h3>
+                    <p class="card-text text-muted flex-grow-1">
+                        Manage and request gate passes seamlessly through a secure online system, ensuring safe and hassle-free entry for all visitors.
+                    </p>
+                    <a href="#" class="btn btn-outline-success mt-auto text-wrap">Learn More &raquo;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card shadow-sm h-100 w-100">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title fw-semibold mb-3">Locker Rentals</h3>
+                    <p class="card-text text-muted flex-grow-1">
+                        Book and manage your personal locker online, providing a secure, convenient, and paperless solution for students and staff members.
+                    </p>
+                    <a href="#" class="btn btn-outline-success mt-auto text-wrap">Learn More &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

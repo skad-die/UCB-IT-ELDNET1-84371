@@ -1,4 +1,4 @@
-namespace WebApplication1.Models
+namespace Accessio.Models
 {
     public class ErrorViewModel
     {
