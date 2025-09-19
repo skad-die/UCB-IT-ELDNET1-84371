@@ -12,5 +12,6 @@ namespace Accessio.Data
         }
         public DbSet<Student> Student { get; set; } = default!;
         public DbSet<Accessio.Models.Locker> Locker { get; set; } = default!;
+        public DbSet<Accessio.Models.GatePass> GatePass { get; set; } = default!;
     }
 }
