@@ -2,32 +2,42 @@
     ViewData["Title"] = "Dashboard";
 }
 
+
+<div class="alert alert-dismissible alert-warning">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">Warning!</h4>
+    <p class="mb-0">This dashboard is not yet done. <a href="#" class="alert-link">NEEDS MORE WORK!!! </a>.</p>
+</div>
+
 <div class="container my-4">
     <div class="d-flex align-items-center justify-content-between mb-3">
         <h1 class="h3 mb-0">Dashboard</h1>
         <small class="text-muted">Overview & quick actions</small>
     </div>
 
-    <!-- Summary cards -->
     <div class="row g-3 mb-4">
         <div class="col-6 col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h6 class="card-subtitle text-muted">Students</h6>
-                    <div class="display-6 fw-bold">@ViewData["TotalStudents"]</div>
-                    <small class="text-muted">Total registered</small>
+            <a href="@Url.Action("Index", "Lockers")" class="card h-100 text-decoration-none text-dark flat-hover">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted">Lockers</h6>
+                        <div class="display-6 fw-bold">@ViewData["TotalLockers"]</div>
+                        <small class="text-muted">Total requests</small>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="col-6 col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h6 class="card-subtitle text-muted">Active Courses</h6>
-                    <div class="display-6 fw-bold">—</div>
-                    <small class="text-muted">Currently active</small>
+            <a href="@Url.Action("Index", "GatePasses")" class="card h-100 text-decoration-none text-dark flat-hover">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted">Gate Passes</h6>
+                        <div class="display-6 fw-bold">@ViewData["TotalGatePasses"]</div>
+                        <small class="text-muted">Total requests</small>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="col-6 col-md-3">
@@ -76,9 +86,9 @@
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-                        <a class="btn btn-outline-primary" href="@Url.Action("Index", "Students")"> Add Student </a>
-                        <a class="btn btn-outline-secondary" href="#" role="button">Create course</a>
-                        <a class="btn btn-outline-secondary" href="#" role="button">Export report</a>
+                        <a class="btn btn-primary" href="@Url.Action("Create", "Lockers")"> Request Locker </a>
+                        <a class="btn btn-primary" href="@Url.Action("Create", "GatePasses")">Request Gate Pass</a>
+                        <a class="btn btn-secondary" href="#" role="button">Placeholder</a>
                     </div>
                 </div>
             </div>

@@ -18,11 +18,14 @@ namespace Accessio.Controllers
 
         public IActionResult Index()
         {
-            int totalStudents = _context.Student.Count();
+            int totalLockerRequests = _context.Locker.Count();
+            int totalGatePassRequests = _context.GatePass.Count();
 
-            ViewData["TotalStudents"] = totalStudents;
+            ViewData["TotalLockers"] = totalLockerRequests;
+            ViewData["TotalGatePasses"] = totalGatePassRequests;
 
             return View("Dashboard");
         }
+
     }
 }

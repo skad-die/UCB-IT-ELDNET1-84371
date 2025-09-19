@@ -39,3 +39,15 @@ body {
     text-align: justify;
     text-justify: auto;
 }
+
+.flat-hover {
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.flat-hover:hover {
+    border-color: #2780e3;
+    box-shadow: 0 0.25rem 0.75rem rgba(39, 128, 227, 0.25);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
