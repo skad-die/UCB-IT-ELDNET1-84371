@@ -116,33 +116,30 @@ namespace Accessio.Controllers
                 try
                 {
                     var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-                    if (!Directory.Exists(uploadDir))
-                        Directory.CreateDirectory(uploadDir);
+                    if (!Directory.Exists(uploadDir)) Directory.CreateDirectory(uploadDir);
 
-                    // Replace StudyLoad file if new one uploaded
                     if (StudyLoadPdf != null && StudyLoadPdf.Length > 0)
                     {
                         var filePath = Path.Combine(uploadDir, StudyLoadPdf.FileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await StudyLoadPdf.CopyToAsync(stream);
-                        }
+                        using var stream = new FileStream(filePath, FileMode.Create);
+                        await StudyLoadPdf.CopyToAsync(stream);
                         gatePass.StudyLoadPdfPath = "/uploads/" + StudyLoadPdf.FileName;
                     }
 
-                    // Replace Registration file if new one uploaded
                     if (RegistrationPdf != null && RegistrationPdf.Length > 0)
                     {
                         var filePath = Path.Combine(uploadDir, RegistrationPdf.FileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await RegistrationPdf.CopyToAsync(stream);
-                        }
+                        using var stream = new FileStream(filePath, FileMode.Create);
+                        await RegistrationPdf.CopyToAsync(stream);
                         gatePass.RegistrationPdfPath = "/uploads/" + RegistrationPdf.FileName;
                     }
 
                     _context.Update(gatePass);
                     await _context.SaveChangesAsync();
+
+                    if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                        return Json(new { success = true });
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
@@ -154,8 +151,14 @@ namespace Accessio.Controllers
 
             PopulateRoleOptions(gatePass.Role);
             PopulateDepartmentOptions(gatePass.Department);
+
+            // ✅ Return partial view for AJAX validation errors
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                return PartialView("_EditFormPartial", gatePass);
+
             return View(gatePass);
         }
+
 
         // GET: GatePasses/Delete/5
         public async Task<IActionResult> Delete(int? id)
