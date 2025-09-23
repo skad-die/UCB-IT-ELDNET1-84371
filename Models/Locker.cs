@@ -42,7 +42,6 @@ namespace Accessio.Models
         [Display(Name = "Contact Number")]
         public string ContactNumber { get; set; } = "";
 
-        [Required]
         [Display(Name = "Study Load PDF")]
         public string? StudyLoadPdfPath { get; set; }
     }

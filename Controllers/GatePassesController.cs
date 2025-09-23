@@ -188,7 +188,7 @@ namespace Accessio.Controllers
             return _context.GatePass.Any(e => e.Id == id);
         }
 
-        // Helpers to populate Role & Department dropdowns
+        
         private void PopulateRoleOptions(object? selectedValue = null)
         {
             ViewData["RoleOptions"] = Enum.GetValues(typeof(RoleOption))

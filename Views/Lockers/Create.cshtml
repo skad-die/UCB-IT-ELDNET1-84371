@@ -9,8 +9,8 @@
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">LOCKER REQUEST FORM</h4>
         </div>
-        <div class="card-body">
-            <form asp-action="Create" enctype="multipart/form-data">
+        <div id="formContainer" class="card-body">
+            <form id="lockerRequestForm" asp-action="Create" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                 <div class="form-group mb-3">
@@ -59,8 +59,49 @@
     </div>
 </div>
 
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+            <h5 class="mb-3 text-success">Success</h5>
+            <p>Your Locker Request was submitted successfully!</p>
+            <button type="button" class="btn btn-primary text-wrap" data-bs-dismiss="modal">OK</button>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        $("#lockerRequestForm").submit(function (e) {
+            e.preventDefault();
+            if (!$(this).valid()) {
+                return;
+            }
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        var successModal = new bootstrap.Modal(document.getElementById("successModal"));
+                        successModal.show();
+                        $("#lockerRequestForm")[0].reset();
+                    } else {
+                        $("#formContainer").html(response);
+                    }
+                },
+                error: function () {
+                    alert("Something went wrong. Please try again.");
+                }
+            });
+        });
+    </script>
 }

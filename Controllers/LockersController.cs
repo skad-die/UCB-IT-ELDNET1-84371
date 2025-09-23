@@ -90,11 +90,12 @@ namespace Accessio.Controllers
 
                 _context.Add(locker);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                return Json(new { success = true });
             }
 
             ViewData["SemesterOptions"] = new SelectList(Enum.GetValues(typeof(SemesterOption)));
-            return View(locker);
+            return PartialView("_CreateForm", locker);
         }
 
 

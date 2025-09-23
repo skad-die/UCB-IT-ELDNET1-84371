@@ -86,11 +86,9 @@ namespace Accessio.Models
         [Display(Name = "Color")]
         public string? Color { get; set; }
 
-        [Required]
         [Display(Name = "Study Load PDF")]
         public string? StudyLoadPdfPath { get; set; }
 
-        [Required]
         [Display(Name = "Vehicle Registration PDF")]
         public string? RegistrationPdfPath { get; set; }
 
