@@ -61,6 +61,23 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Breadcrumbs {
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-3">
+            <li class="breadcrumb-item">
+                <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-controller="Lockers" asp-action="Index">Lockers</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Edit
+            </li>
+        </ol>
+    </nav>
+}
+
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
