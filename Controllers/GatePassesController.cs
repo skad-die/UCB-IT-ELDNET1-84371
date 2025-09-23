@@ -118,21 +118,18 @@ namespace Accessio.Controllers
                     var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
                     if (!Directory.Exists(uploadDir)) Directory.CreateDirectory(uploadDir);
 
-                    if (StudyLoadPdf != null && StudyLoadPdf.Length > 0)
-                    {
-                        var filePath = Path.Combine(uploadDir, StudyLoadPdf.FileName);
-                        using var stream = new FileStream(filePath, FileMode.Create);
-                        await StudyLoadPdf.CopyToAsync(stream);
-                        gatePass.StudyLoadPdfPath = "/uploads/" + StudyLoadPdf.FileName;
-                    }
+                    // Fetch the existing entity from DB
+                    var existingGatePass = await _context.GatePass.AsNoTracking().FirstOrDefaultAsync(g => g.Id == id);
+                    if (existingGatePass == null) return NotFound();
 
-                    if (RegistrationPdf != null && RegistrationPdf.Length > 0)
-                    {
-                        var filePath = Path.Combine(uploadDir, RegistrationPdf.FileName);
-                        using var stream = new FileStream(filePath, FileMode.Create);
-                        await RegistrationPdf.CopyToAsync(stream);
-                        gatePass.RegistrationPdfPath = "/uploads/" + RegistrationPdf.FileName;
-                    }
+                    // Keep previous PDF paths if no new file uploaded
+                    gatePass.StudyLoadPdfPath = StudyLoadPdf != null && StudyLoadPdf.Length > 0
+                        ? await SaveFileAsync(StudyLoadPdf, uploadDir)
+                        : existingGatePass.StudyLoadPdfPath;
+
+                    gatePass.RegistrationPdfPath = RegistrationPdf != null && RegistrationPdf.Length > 0
+                        ? await SaveFileAsync(RegistrationPdf, uploadDir)
+                        : existingGatePass.RegistrationPdfPath;
 
                     _context.Update(gatePass);
                     await _context.SaveChangesAsync();
@@ -152,12 +149,23 @@ namespace Accessio.Controllers
             PopulateRoleOptions(gatePass.Role);
             PopulateDepartmentOptions(gatePass.Department);
 
-            // ✅ Return partial view for AJAX validation errors
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                 return PartialView("_EditFormPartial", gatePass);
 
             return View(gatePass);
         }
+
+        // Helper method to save uploaded file and return path
+        private async Task<string> SaveFileAsync(IFormFile file, string uploadDir)
+        {
+            var filePath = Path.Combine(uploadDir, file.FileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            return "/uploads/" + file.FileName;
+        }
+
 
 
         // GET: GatePasses/Delete/5

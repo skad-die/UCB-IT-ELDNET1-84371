@@ -1,7 +1,7 @@
 ﻿@model Accessio.Models.GatePass
 
 @{
-    ViewData["Title"] = "Edit Gate Pass Application";
+    ViewData["Title"] = "Edit Gate Pass";
 }
 
 <div class="container mt-4" style="max-width: 700px">
@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <div id="formContainer">
-                <form id="gatePassForm" asp-action="Edit" asp-controller="GatePasses" method="post" enctype="multipart/form-data">
+                <form id="gatePassEditForm" asp-action="Edit" asp-controller="GatePasses" method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Id" />
 
@@ -19,7 +19,7 @@
 
                     <div class="form-group mb-3">
                         <label asp-for="ApplicationDate" class="form-label fw-bold">Application Date</label>
-                        <input asp-for="ApplicationDate" class="form-control" type="date" />
+                        <input asp-for="ApplicationDate" type="date" class="form-control" />
                         <span asp-validation-for="ApplicationDate" class="text-danger"></span>
                     </div>
 
@@ -43,11 +43,13 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label asp-for="Role" class="form-label fw-bold d-block"></label>
+                        <label asp-for="Role" class="form-label fw-bold d-block">Role</label>
                         @foreach (var role in Html.GetEnumSelectList<RoleOption>())
                         {
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" asp-for="Role" value="@role.Value" id="role_@role.Value" />
+                                <input class="form-check-input" type="radio"
+                                       asp-for="Role" value="@role.Value"
+                                       id="role_@role.Value" />
                                 <label class="form-check-label" for="role_@role.Value">@role.Text</label>
                             </div>
                         }
@@ -82,6 +84,7 @@
                             <span asp-validation-for="RegistrationExpiryDate" class="text-danger"></span>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label asp-for="VehicleType" class="form-label fw-bold"></label>
@@ -103,23 +106,23 @@
                     <h5 class="fw-bold mt-4">Attachments</h5>
                     <div class="form-group mb-3">
                         <label class="form-label fw-bold">Study Load</label>
-                        <input type="file" name="StudyLoadPdf" class="form-control" accept="application/pdf" />
                         @if (!string.IsNullOrEmpty(Model.StudyLoadPdfPath))
                         {
-                            <small class="text-muted">Current: @Model.StudyLoadPdfPath</small>
+                            <p>Current File: <a href="@Model.StudyLoadPdfPath" target="_blank">View PDF</a></p>
                         }
+                        <input type="file" name="StudyLoadPdf" class="form-control" accept="application/pdf" />
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label fw-bold">Registration</label>
-                        <input type="file" name="RegistrationPdf" class="form-control" accept="application/pdf" />
                         @if (!string.IsNullOrEmpty(Model.RegistrationPdfPath))
                         {
-                            <small class="text-muted">Current: @Model.RegistrationPdfPath</small>
+                            <p>Current File: <a href="@Model.RegistrationPdfPath" target="_blank">View PDF</a></p>
                         }
+                        <input type="file" name="RegistrationPdf" class="form-control" accept="application/pdf" />
                     </div>
 
                     <div class="text-center mt-4">
-                        <input type="submit" value="Save Changes" class="btn btn-primary" />
+                        <input type="submit" value="Update Request" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
@@ -127,27 +130,21 @@
     </div>
 </div>
 
-@section Breadcrumbs {
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb my-3">
-            <li class="breadcrumb-item">
-                <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a asp-controller="GatePasses" asp-action="Index">Gate Pass</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                Edit
-            </li>
-        </ol>
-    </nav>
-}
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+            <h5 class="mb-3 text-success">Success</h5>
+            <p>Your Gate Pass application was updated successfully!</p>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
     <script>
-        $("#gatePassForm").submit(function (e) {
+        $("#gatePassEditForm").submit(function (e) {
             e.preventDefault();
             if (!$(this).valid()) return;
 
@@ -161,8 +158,11 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                        alert("Gate Pass updated successfully!");
-                        window.location.href = "@Url.Action("Index","GatePasses")";
+                        var successModal = new bootstrap.Modal(document.getElementById("successModal"));
+                        successModal.show();
+                        document.getElementById("successModal").addEventListener('hidden.bs.modal', function () {
+                            window.location.href = '@Url.Action("Index","GatePasses")';
+                        });
                     } else {
                         $("#formContainer").html(response);
                     }
