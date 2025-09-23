@@ -4,14 +4,14 @@
     ViewData["Title"] = "Gate Pass Applications";
 }
 
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="mb-0">Gate Pass Applications</h2>
-        <a asp-action="Create" class="btn btn-primary">+ New</a>
+        <a asp-action="Create" class="btn btn-primary">+ New Request</a>
     </div>
 
-    <div class="shadow-sm">
-        <table class="table table-striped table-hover table-bordered align-middle mb-0">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle shadow-sm">
             <thead class="table-primary text-center">
                 <tr>
                     <th>Full Name</th>
@@ -28,41 +28,49 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@($"{item.FirstName} {item.LastName}")</td>
-                        <td>@item.Address</td>
-                        <td>@item.ApplicationDate.ToString("MMM dd, yyyy")</td>
-                        <td>
-                            <div><strong>Role:</strong> @item.Role</div>
-                            <div><strong>Dept:</strong> @item.Department</div>
-                            <div><strong>Course:</strong> @item.CourseAndYear</div>
-                        </td>
-                        <td>
-                            <div><strong>Plate:</strong> @item.VehiclePlateNo</div>
-                            <div><strong>Info:</strong> @($"{item.VehicleType} {item.Maker} {item.Color}")</div>
-                            <div><strong>Registration:</strong> @item.RegistrationExpiryDate?.ToString("MMM dd, yyyy")</div>
+                        <td colspan="7" class="p-0">
+                            <a href="@Url.Action("Details", new { id = item.Id })"
+                               class="d-flex text-decoration-none text-dark w-100 p-2">
+                                <div class="col">@($"{item.FirstName} {item.LastName}")</div>
+                                <div class="col">@item.Address</div>
+                                <div class="col">@item.ApplicationDate.ToString("MMM dd, yyyy")</div>
+                                <div class="col">
+                                    <div>
+                                        <span class="badge bg-info">@item.Role</span>
+                                        <span class="badge bg-secondary">@item.Department</span>
+                                    </div>
+
+                                    <strong>Course:</strong> @item.CourseAndYear
+                                </div>
+                                <div class="col">
+                                    #: @item.VehiclePlateNo <br />
+                                    <strong>Info:</strong> @($"{item.VehicleType} {item.Maker} {item.Color}") <br />
+                                    <strong>Reg:</strong> @item.RegistrationExpiryDate?.ToString("MMM dd, yyyy")
+                                </div>
+                                <div class="col text-center">
+                                    @if (!string.IsNullOrEmpty(item.StudyLoadPdfPath))
+                                    {
+                                        <span class="text-primary">View PDF</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No PDF</span>
+                                    }
+                                </div>
+                                <div class="col text-center">
+                                    @if (!string.IsNullOrEmpty(item.RegistrationPdfPath))
+                                    {
+                                        <span class="text-primary">View PDF</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No PDF</span>
+                                    }
+                                </div>
+                            </a>
+
                         </td>
                         <td class="text-center">
-                            @if (!string.IsNullOrEmpty(item.StudyLoadPdfPath))
-                            {
-                                <a href="@item.StudyLoadPdfPath" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
-                            }
-                            else
-                            {
-                                <span class="text-muted">—</span>
-                            }
-                        </td>
-                        <td class="text-center">
-                            @if (!string.IsNullOrEmpty(item.RegistrationPdfPath))
-                            {
-                                <a href="@item.RegistrationPdfPath" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
-                            }
-                            else
-                            {
-                                <span class="text-muted">—</span>
-                            }
-                        </td>
-                        <td class="text-center">
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info me-1">Details</a>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-1">Edit</a>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
                         </td>
@@ -72,3 +80,17 @@
         </table>
     </div>
 </div>
+
+@section Breadcrumbs {
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-3">
+            <li class="breadcrumb-item">
+                <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Gate Pass
+            </li>
+        </ol>
+    </nav>
+}
+

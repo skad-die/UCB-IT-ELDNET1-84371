@@ -16,7 +16,7 @@ namespace Accessio.Models
         CollegeOfLaw,
 
         [Display(Name = "College of Computer Studies")]
-        CollegeOfCs,
+        CollegeOfCS,
 
         [Display(Name = "College of Engineering")]
         CollegeOfEngineering,
