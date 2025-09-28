@@ -121,7 +121,7 @@ namespace Accessio.Controllers
         // POST: Lockers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,LastName,FirstName,Semester,ContactNumber,StudyLoadPdfPath")] Locker locker)
+        public async Task<IActionResult> Edit(int id, Locker locker, IFormFile? StudyLoadPdfPath)
         {
             if (id != locker.Id)
             {
@@ -132,8 +132,36 @@ namespace Accessio.Controllers
             {
                 try
                 {
+                    var existingLocker = await _context.Locker.AsNoTracking().FirstOrDefaultAsync(l => l.Id == id);
+                    if (existingLocker == null)
+                    {
+                        return NotFound();
+                    }
+
+                    if (StudyLoadPdfPath != null && StudyLoadPdfPath.Length > 0)
+                    {
+                        var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+                        if (!Directory.Exists(uploadDir))
+                            Directory.CreateDirectory(uploadDir);
+
+                        var fileName = Path.GetFileName(StudyLoadPdfPath.FileName);
+                        var filePath = Path.Combine(uploadDir, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await StudyLoadPdfPath.CopyToAsync(stream);
+                        }
+
+                        locker.StudyLoadPdfPath = "/uploads/" + fileName;
+                    }
+                    else
+                    {
+                        locker.StudyLoadPdfPath = existingLocker.StudyLoadPdfPath;
+                    }
+
                     _context.Update(locker);
                     await _context.SaveChangesAsync();
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
@@ -148,11 +176,10 @@ namespace Accessio.Controllers
                     }
                 }
             }
-
-            // Repopulate dropdown if validation fails
             PopulateSemesterOptions(locker.Semester);
             return View(locker);
         }
+
 
         // GET: Lockers/Delete/5
         public async Task<IActionResult> Delete(int? id)

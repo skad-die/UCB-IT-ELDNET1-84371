@@ -1,64 +1,69 @@
 ﻿@model Accessio.Models.Locker
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Locker Request";
 }
 
-<h1>Edit</h1>
+<div class="container mt-4" style="max-width: 700px">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">EDIT LOCKER REQUEST</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<h4>Locker</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Id" />
 
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="IdNumber" class="form-label fw-bold">ID Number</label>
+                    <input asp-for="IdNumber" class="form-control" />
+                    <span asp-validation-for="IdNumber" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="LastName" class="form-label fw-bold">Last Name</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Semester" class="control-label"></label>
-                <select asp-for="Semester"
-                        class="form-control"
-                        asp-items="@(ViewData["SemesterOptions"] as List<SelectListItem>)"></select>
-                <span asp-validation-for="Semester" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="FirstName" class="form-label fw-bold">First Name</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="ContactNumber" class="control-label"></label>
-                <input asp-for="ContactNumber" class="form-control" />
-                <span asp-validation-for="ContactNumber" class="text-danger"></span>
-            </div>
+                <div class="mb-3">
+                    <label asp-for="Semester" class="form-label fw-bold">Semester</label>
+                    <select asp-for="Semester" class="form-select w-50"
+                            asp-items="@(ViewData["SemesterOptions"] as SelectList)">
+                    </select>
+                    <span asp-validation-for="Semester" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label class="control-label">Replace Study Load PDF</label>
-                <input asp-for="StudyLoadPdfPath" type="file" class="form-control" accept="application/pdf" />
-                @if (!string.IsNullOrEmpty(Model.StudyLoadPdfPath))
-                {
-                    <a href="@Model.StudyLoadPdfPath" target="_blank" class="btn btn-link mt-1">Current PDF</a>
-                }
-                <span asp-validation-for="StudyLoadPdfPath" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="ContactNumber" class="form-label fw-bold">Contact Number</label>
+                    <input asp-for="ContactNumber" class="form-control" />
+                    <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                </div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Replace Study Load PDF</label>
+                    <input asp-for="StudyLoadPdfPath" type="file" class="form-control" accept="application/pdf" />
+                    @if (!string.IsNullOrEmpty(Model.StudyLoadPdfPath))
+                    {
+                        <a href="@Model.StudyLoadPdfPath" target="_blank" class="btn btn-link mt-1">Current PDF</a>
+                    }
+                    <span asp-validation-for="StudyLoadPdfPath" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center mt-4">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Breadcrumbs {
@@ -76,7 +81,6 @@
         </ol>
     </nav>
 }
-
 
 @section Scripts {
     @{

@@ -1,0 +1,129 @@
+﻿@model Accessio.Models.ActivityReservation
+
+@{
+    ViewData["Title"] = "Edit Activity Reservation";
+}
+
+<div class="container mt-4" style="max-width: 800px">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">EDIT ACTIVITY RESERVATION</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Department" class="form-label fw-bold"></label>
+                    <select asp-for="Department" class="form-select" asp-items="@(ViewData["DepartmentOptions"] as SelectList)"></select>
+
+                    <span asp-validation-for="Department" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ApplicationDate" class="form-label fw-bold"></label>
+                        <input asp-for="ApplicationDate" type="date" class="form-control" />
+                        <span asp-validation-for="ApplicationDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="DateNeeded" class="form-label fw-bold"></label>
+                        <input asp-for="DateNeeded" type="date" class="form-control" />
+                        <span asp-validation-for="DateNeeded" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ActivityTitle" class="form-label fw-bold"></label>
+                    <input asp-for="ActivityTitle" class="form-control" />
+                    <span asp-validation-for="ActivityTitle" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="SpeakerName" class="form-label fw-bold"></label>
+                        <input asp-for="SpeakerName" class="form-control" />
+                        <span asp-validation-for="SpeakerName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Venue" class="form-label fw-bold"></label>
+                        <input asp-for="Venue" class="form-control" />
+                        <span asp-validation-for="Venue" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PurposeObjective" class="form-label fw-bold"></label>
+                    <textarea asp-for="PurposeObjective" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="PurposeObjective" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EventEquipmentRequest" class="form-label fw-bold"></label>
+                    <textarea asp-for="EventEquipmentRequest" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="EventEquipmentRequest" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="TimeFrom" class="form-label fw-bold"></label>
+                        <input asp-for="TimeFrom" type="time" class="form-control" />
+                        <span asp-validation-for="TimeFrom" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="TimeTo" class="form-label fw-bold"></label>
+                        <input asp-for="TimeTo" type="time" class="form-control" />
+                        <span asp-validation-for="TimeTo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Participants" class="form-label fw-bold"></label>
+                        <input asp-for="Participants" type="number" class="form-control" />
+                        <span asp-validation-for="Participants" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="NatureOfActivity" class="form-label fw-bold"></label>
+                        <input asp-for="NatureOfActivity" class="form-control" />
+                        <span asp-validation-for="NatureOfActivity" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="SourceOfFunds" class="form-label fw-bold"></label>
+                    <input asp-for="SourceOfFunds" class="form-control" />
+                    <span asp-validation-for="SourceOfFunds" class="text-danger"></span>
+                </div>
+
+                <div class="text-center mt-4">
+                    <input type="submit" value="Save Changes" class="btn btn-primary me-2" />
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Breadcrumbs {
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-3">
+            <li class="breadcrumb-item">
+                <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-controller="ActivityReservations" asp-action="Index">Activity Reservation</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Edit
+            </li>
+        </ol>
+    </nav>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Accessio.Models.ActivityReservation>
+
+@{
+    ViewData["Title"] = "Activity Reservations";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Activity Reservations</h2>
+        <a asp-action="Create" class="btn btn-primary">+ New Reservation</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle shadow-sm text-center" style="table-layout: fixed; width: 100%;">
+            <thead class="table-primary">
+                <tr>
+                    <th style="width: 12%;">Department</th>
+                    <th style="width: 10%;">Applied</th>
+                    <th style="width: 20%;">Activity & Schedule</th>
+                    <th style="width: 10%;">Venue</th>
+                    <th style="width: 38%;">Purpose, Equipment & Details</th>
+                    <th style="width: 10%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-wrap">
+                            <span class="badge bg-primary">@item.Department</span>
+                        </td>
+
+                        <td>@item.ApplicationDate.ToString("MMM dd, yyyy")</td>
+
+                        <td class="text-wrap">
+                            <div class="fw-bold text-primary fs-6">@item.ActivityTitle</div>
+                            <div class="text-muted small"><strong>Date:</strong> @item.DateNeeded.ToString("MMM dd, yyyy")</div>
+                            <div class="text-muted small"><strong>Time:</strong> @item.TimeFrom - @item.TimeTo</div>
+                        </td>
+
+                        <td class="text-wrap">@item.Venue</td>
+
+                        <td class="text-wrap text-start small">
+                            <div class="mb-1">
+                                <strong>Purpose:</strong>
+                                <span class="text-truncate d-inline-block" style="max-width: 250px;" title="@item.PurposeObjective">
+                                    @item.PurposeObjective
+                                </span>
+                            </div>
+                            <div class="mb-1">
+                                <strong>Equipment:</strong>
+                                <span class="text-truncate d-inline-block" style="max-width: 250px;" title="@item.EventEquipmentRequest">
+                                    @item.EventEquipmentRequest
+                                </span>
+                            </div>
+                            <hr class="my-1" />
+                            <div><strong>Speaker:</strong> @item.SpeakerName</div>
+                            <div><strong>Participants:</strong> @item.Participants</div>
+                            <div><strong>Nature:</strong> @item.NatureOfActivity</div>
+                            <div><strong>Funds:</strong> @item.SourceOfFunds</div>
+                        </td>
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-1">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Breadcrumbs {
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-3">
+            <li class="breadcrumb-item">
+                <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Activity Reservations
+            </li>
+        </ol>
+    </nav>
+}
