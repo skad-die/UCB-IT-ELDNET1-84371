@@ -11,66 +11,56 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-striped table-hover align-middle shadow-sm">
-            <thead class="table-primary text-center">
+        <table class="table table-striped table-hover align-middle shadow-sm text-center" style="table-layout: fixed; width: 100%;">
+            <thead class="table-primary">
                 <tr>
-                    <th>Full Name</th>
-                    <th>Address</th>
-                    <th>Applied</th>
-                    <th>Academic Info</th>
-                    <th>Vehicle</th>
-                    <th>Study Load</th>
-                    <th>Registration</th>
-                    <th class="text-center">Actions</th>
+                    <th style="width: 15%;">Applicant</th>
+                    <th style="width: 20%;">Address</th>
+                    <th style="width: 10%;">Applied</th>
+                    <th style="width: 25%;">Vehicle</th>
+                    <th style="width: 10%;">Study Load</th>
+                    <th style="width: 10%;">Registration</th>
+                    <th style="width: 10%;">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td colspan="7" class="p-0">
-                            <a href="@Url.Action("Details", new { id = item.Id })"
-                               class="d-flex text-decoration-none text-dark w-100 p-2">
-                                <div class="col">@($"{item.FirstName} {item.LastName}")</div>
-                                <div class="col">@item.Address</div>
-                                <div class="col">@item.ApplicationDate.ToString("MMM dd, yyyy")</div>
-                                <div class="col">
-                                    <div>
-                                        <span class="badge bg-info">@item.Role</span>
-                                        <span class="badge bg-secondary">@item.Department</span>
-                                    </div>
-
-                                    <strong>Course:</strong> @item.CourseAndYear
-                                </div>
-                                <div class="col">
-                                    #: @item.VehiclePlateNo <br />
-                                    <strong>Info:</strong> @($"{item.VehicleType} {item.Maker} {item.Color}") <br />
-                                    <strong>Reg:</strong> @item.RegistrationExpiryDate?.ToString("MMM dd, yyyy")
-                                </div>
-                                <div class="col text-center">
-                                    @if (!string.IsNullOrEmpty(item.StudyLoadPdfPath))
-                                    {
-                                        <span class="text-primary">View PDF</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">No PDF</span>
-                                    }
-                                </div>
-                                <div class="col text-center">
-                                    @if (!string.IsNullOrEmpty(item.RegistrationPdfPath))
-                                    {
-                                        <span class="text-primary">View PDF</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">No PDF</span>
-                                    }
-                                </div>
-                            </a>
-
+                        <td class="text-wrap">
+                            @($"{item.FirstName} {item.LastName}") <br />
+                            <span class="badge bg-info">@item.Role</span>
+                            <span class="badge bg-primary">@item.CourseAndYear</span>
+                            <span class="badge bg-secondary">@item.Department</span>
                         </td>
-                        <td class="text-center">
+                        <td class="text-wrap">@item.Address</td>
+                        <td>@item.ApplicationDate.ToString("MMM dd, yyyy")</td>
+                        <td class="text-wrap">
+                            #: @item.VehiclePlateNo <br />
+                            <strong>Info:</strong> @($"{item.VehicleType} {item.Maker} {item.Color}") <br />
+                            <strong>Reg:</strong> @item.RegistrationExpiryDate?.ToString("MMM dd, yyyy")
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.StudyLoadPdfPath))
+                            {
+                                <a href="@Url.Content(item.StudyLoadPdfPath)" target="_blank" class="text-primary">View PDF</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No PDF</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.RegistrationPdfPath))
+                            {
+                                <a href="@Url.Content(item.RegistrationPdfPath)" target="_blank" class="text-primary">View PDF</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No PDF</span>
+                            }
+                        </td>
+                        <td>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-1">Edit</a>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
                         </td>
@@ -78,6 +68,8 @@
                 }
             </tbody>
         </table>
+
+
     </div>
 </div>
 
